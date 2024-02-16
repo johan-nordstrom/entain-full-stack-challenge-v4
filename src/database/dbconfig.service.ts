@@ -8,7 +8,7 @@ export class DBConfigService {
     create = () => {
         return {
             postgres: {
-                url: this.configService.get('DATABASE_URL'),
+                url: this.configService.get<string>('connectionString'),
             },
             config: { schema: { ...schema } },
         };

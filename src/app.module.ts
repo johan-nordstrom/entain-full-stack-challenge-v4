@@ -3,6 +3,7 @@ import { DrizzlePostgresModule } from '@knaadh/nestjs-drizzle-postgres';
 import { ConfigModule } from '@nestjs/config';
 import {DBConfigService} from "./database/dbconfig.service";
 import {MovieModule} from "./movie/movie.module";
+import configuration from '../config/configuration';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import {MovieModule} from "./movie/movie.module";
       }),
       ConfigModule.forRoot({
           isGlobal: true,
-          envFilePath: ['.env.development']
+          load: [configuration]
       },
   )],
 })
