@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@nestjs/common';
 import {PostgresJsDatabase} from "drizzle-orm/postgres-js";
 import * as schema from '../database/schema';
 import {movies} from '../database/schema';
-import {Movie} from "../models/movie";
+import {Movie} from "./movie";
 
 @Injectable()
 export class MovieService {
