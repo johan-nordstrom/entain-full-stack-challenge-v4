@@ -3,7 +3,7 @@ import * as Configuration from "config/configuration";
 
 export default {
   schema: './src/database/schema.ts',
-  out: './migrations',
+  out: './src/database/migrations',
   driver: 'pg',
   dbCredentials: {
     connectionString: Configuration.default().connectionString,
