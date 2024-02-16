@@ -1,6 +1,27 @@
 version: '3.9'
 
 services:
+  api:
+    image: nestjs-dev
+    restart: unless-stopped
+    env_file: .env.development
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # ✨ Target the dev stage
+      target: dev
+    volumes:
+      - .:/app
+      # This ensures that the NestJS container manages the node_modules folder
+      # rather than synchronizes it with the host machine
+      - /app/node_modules
+    ports:
+        - '3000:3000'
+    depends_on:
+      - database
+    command: 'npx nest start --watch'
+    networks:
+      - fullstack
   database:
     image: postgres:16-alpine
     env_file: .env.development
