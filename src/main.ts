@@ -1,8 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import {ConfigService} from "@nestjs/config";
+import {Logger} from "@nestjs/common";
 
 async function run() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.API_PORT || 3000);
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('API_PORT');
+  //await app.listen(port || 3000);
+  await app.listen(port || 3000, () =>
+      Logger.log(`App listening on port http://localhost:${port}/graphql`),
+  );
 }
 run();
