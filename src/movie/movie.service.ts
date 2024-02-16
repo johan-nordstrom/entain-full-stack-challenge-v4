@@ -1,25 +1,34 @@
-import {Inject, Injectable} from '@nestjs/common';
-import {PostgresJsDatabase} from "drizzle-orm/postgres-js";
-import * as schema from '../database/schema';
+import {Inject} from '@nestjs/common';
 import {movies} from '../database/schema';
-import {Movie} from "./movie";
+import {Movie} from "./movie.model";
+import MovieRepository from "./movie.repository";
+import {MovieFilterType} from "./findMoviesDto";
 
-@Injectable()
 export class MovieService {
   constructor(
-      @Inject('DB_DEV') private db: PostgresJsDatabase<typeof schema>,
+      @Inject(MovieRepository) private movieRepository: MovieRepository,
   ) {}
  async getMovies(): Promise<Movie[]> {
-    return await this.db.select().from(movies).then((movs) => {
-        return movs.map((mov) => {
-            return new Movie(mov.title, mov.genre);
-        });
-    });
+     return await this.movieRepository.all().then((movs) => {
+         return movs;
+     });
   }
-  getMoviesByTitle(title): string[] {
-    return [title];
-  }
-  getMoviesByGenre(genres): string[] {
-    return genres;
+  async getMoviesByFilter(text: string, filterType: MovieFilterType): Promise<Movie[]> {
+      if (text == "") {
+        return await this.getMovies();
+      }
+
+      switch (filterType) {
+          case MovieFilterType.Genre: {
+              return await this.movieRepository.findMany(movies.genre, text).then((movs) => {
+                  return movs;
+              });
+          }
+          case MovieFilterType.Title: {
+              return await this.movieRepository.findMany(movies.title, text).then((movs) => {
+                  return movs;
+              });
+          }
+      }
   }
 }
