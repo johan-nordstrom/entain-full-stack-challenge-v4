@@ -2,15 +2,18 @@ import { Module } from '@nestjs/common';
 import { MovieController } from './movie.controller';
 import { MovieService } from './movie.service';
 import { DrizzlePostgresModule } from '@knaadh/nestjs-drizzle-postgres';
-import * as dotenv from "dotenv";
-dotenv.config({ path: "./.env.development" });
+import { ConfigModule } from '@nestjs/config';
+import {DBConfigService} from "./database/dbconfig.service";
 
 @Module({
-  imports: [DrizzlePostgresModule.register({
-      tag: 'DB_DEV',
-      postgres: {
-        url: process.env.DATABASE_URL,
-      }
+  imports: [
+      DrizzlePostgresModule.registerAsync({
+            tag: 'DB_DEV',
+            useClass: DBConfigService,
+      }),
+      ConfigModule.forRoot({
+          isGlobal: true,
+          envFilePath: ['.env.development']
   })],
   controllers: [MovieController],
   providers: [MovieService],

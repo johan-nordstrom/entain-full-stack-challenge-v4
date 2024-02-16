@@ -1,5 +1,6 @@
 ## Implementation plan
 I decided to implement the API first and all the endpoints. I will then implement the frontend and connect it to the API.
+
 ## Drizzle ORM
 I did speak to some people who are typescript developers and discussed the best and most simple ORM, i landed on Drizzle.
 To integrate drizzle in the project i used the nestjs-drizzle module.
@@ -14,3 +15,6 @@ I will host the repo on github but i will most likely host the project on a diff
 
 ## Repository pattern
 I am planning on using the repository pattern for services.
+
+## Host
+Set database 127.0.0.1 in /etc/hosts when developing to not have to change postgres url
