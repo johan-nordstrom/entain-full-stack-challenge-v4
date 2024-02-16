@@ -8,7 +8,7 @@ async function run() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('port');
   await app.listen(port || 3000, () =>
-      Logger.log(`App listening on port http://localhost:${port}/graphql`),
+      Logger.log(`App listening on port http://localhost:${port}`),
   );
 }
 run();
