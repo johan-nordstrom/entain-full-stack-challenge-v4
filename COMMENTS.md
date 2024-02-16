@@ -18,7 +18,3 @@ I am planning on using the repository pattern for services.
 
 ## Host
 Set database 127.0.0.1 in /etc/hosts when developing to not have to change postgres url
-
-## Event Sourcing
-Decided to implement CQRS only in frontend for now, 
-to make it work in the backend i would have to rewrite to mongo.
