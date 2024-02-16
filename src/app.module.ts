@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { MovieController } from './movie/movie.controller';
-import { MovieService } from './movie/movie.service';
 import { DrizzlePostgresModule } from '@knaadh/nestjs-drizzle-postgres';
 import { ConfigModule } from '@nestjs/config';
 import {DBConfigService} from "./database/dbconfig.service";
