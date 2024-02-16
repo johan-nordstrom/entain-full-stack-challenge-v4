@@ -19,7 +19,9 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
             Genre: movies.genre
         }).
         from(movies).
-        then();
+        then((movies) => {
+            return movies;
+        });
     }
     async findMany(column: PgColumn, text: string): Promise<Movie[]> {
         // Format string to work with like statement

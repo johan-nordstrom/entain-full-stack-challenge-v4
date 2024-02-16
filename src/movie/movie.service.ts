@@ -9,9 +9,7 @@ export class MovieService {
       @Inject(MovieRepository) private movieRepository: MovieRepository,
   ) {}
  async getMovies(): Promise<Movie[]> {
-     return await this.movieRepository.all().then((movs) => {
-         return movs;
-     });
+     return await this.movieRepository.all();
   }
   async getMoviesByFilter(text: string, filterType: MovieFilterType): Promise<Movie[]> {
       if (text.trim() == "") {
