@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { MovieService } from './movie.service';
-import {Movie} from "./models/movie";
+import {Movie} from "../models/movie";
 
 @Controller('movies')
 export class MovieController {
