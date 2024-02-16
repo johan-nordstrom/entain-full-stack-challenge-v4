@@ -1,8 +1,7 @@
 import {Inject} from '@nestjs/common';
 import {movies} from '../database/schema';
-import {Movie} from "./movie.model";
+import {Movie, MovieFilterType} from "./movie.model";
 import MovieRepository from "./movie.repository";
-import {MovieFilterType} from "./findMoviesDto";
 
 export class MovieService {
   constructor(

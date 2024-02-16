@@ -1,7 +1,6 @@
 import {Body, Controller, Get, HttpException, HttpStatus, Param, Post, Query, ValidationPipe} from '@nestjs/common';
 import { MovieService } from './movie.service';
-import {Movie} from "./movie.model";
-import {FindMoviesDto, MovieFilterType} from "./findMoviesDto";
+import {FindMoviesDto, Movie, MovieFilterType} from "./movie.model";
 
 @Controller('movies')
 export class MovieController {
