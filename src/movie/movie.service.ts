@@ -14,20 +14,16 @@ export class MovieService {
      });
   }
   async getMoviesByFilter(text: string, filterType: MovieFilterType): Promise<Movie[]> {
-      if (text == "") {
+      if (text.trim() == "") {
         return await this.getMovies();
       }
 
       switch (filterType) {
           case MovieFilterType.Genre: {
-              return await this.movieRepository.findMany(movies.genre, text).then((movs) => {
-                  return movs;
-              });
+              return await this.movieRepository.findMany(movies.genre, text);
           }
           case MovieFilterType.Title: {
-              return await this.movieRepository.findMany(movies.title, text).then((movs) => {
-                  return movs;
-              });
+              return await this.movieRepository.findMany(movies.title, text);
           }
       }
   }

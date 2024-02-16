@@ -14,15 +14,24 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
     ) {
     }
     async all(): Promise<Movie[]> {
-        return await this.db.select({Title: movies.title, Genre: movies.genre }).from(movies).then();
+        return await this.db.select({
+            Title: movies.title,
+            Genre: movies.genre
+        }).
+        from(movies).
+        then();
     }
     async findMany(column: PgColumn, text: string): Promise<Movie[]> {
         // Format string to work with like statement
         text = `%${text}%`;
-        return await this.db.select({Title: movies.title, Genre: movies.genre}).from(movies).where(ilike(column, text)).then(
-            (movies) => {
-                return movies;
-            }
-        );
+
+        return await this.db.select({
+            Title: movies.title,
+            Genre: movies.genre}).
+        from(movies).
+        where(ilike(column, text)).
+        then((movies) => {
+            return movies;
+        });
     }
 }
