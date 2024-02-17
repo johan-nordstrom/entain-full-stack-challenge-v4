@@ -17,4 +17,10 @@ I will host the repo on github but i will most likely host the project on a diff
 I am planning on using the repository pattern for services.
 
 ## Host
-Set database 127.0.0.1 in /etc/hosts when developing to not have to change postgres url
+Set database 127.0.0.1 in /etc/hosts when developing to not have to change postgres url.
+Need to figure out why docker is not resolving database host.
+
+
+## Dev or prod enviroment
+In respect of time i will just implement dev and prod enviroment to demonstrate
+being able to use different databases depending on enviroment.
