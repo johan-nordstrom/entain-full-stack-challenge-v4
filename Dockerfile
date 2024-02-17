@@ -4,6 +4,7 @@
 FROM node:18-alpine as dev
 # add the missing shared libraries from alpine base image
 RUN apk add --no-cache libc6-compat
+
 # Create app folder
 WORKDIR /app
 
@@ -71,6 +72,13 @@ RUN adduser --system --uid 1001 node || true
 # Copy only the necessary files
 COPY --chown=node:node --from=build /app/dist dist
 COPY --chown=node:node --from=build /app/node_modules node_modules
+
+# Generate migration
+RUN npm run generate
+# Push migrations
+RUN npm run migrate
+# Seed database
+RUN npm run seed
 
 # Set Docker as non-root user
 USER node
