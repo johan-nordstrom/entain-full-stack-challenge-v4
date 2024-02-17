@@ -20,7 +20,9 @@ I am planning on using the repository pattern for services.
 Set database 127.0.0.1 in /etc/hosts when developing to not have to change postgres url.
 Need to figure out why docker is not resolving database host.
 
-
 ## Dev or prod enviroment
 In respect of time i will just implement dev and prod enviroment to demonstrate
 being able to use different databases depending on enviroment.
+
+## Database seeding
+I could write a script that uses tmdb api and populate database but to save time i opted to just insert 10 random movies.
