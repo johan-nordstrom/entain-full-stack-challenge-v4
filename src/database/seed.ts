@@ -2,6 +2,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import {movies} from "./schema";
 import * as configuration from "config/configuration";
+import {Logger} from "@nestjs/common";
 
 const client = new Pool({
     connectionString: configuration.default().connectionString,
@@ -14,7 +15,7 @@ async function deleteTables() {
 
 // Seed the database with initial movies
 async function seed()  {
-    console.log('Seeding database...');
+    Logger.log('Seeding database...');
     return deleteTables().then( async () => {
         let movs = [
             { Title: "The Matrix", Genre: "Action" },
@@ -33,9 +34,9 @@ async function seed()  {
 };
 
 seed().catch((e) => {
-    console.error('Seeding failed, error: ', e);
+    Logger.log('Seeding failed, error: ', e);
     process.exit(1);
 }).finally(() => {
-    console.log('Seeding done!');
+    Logger.log('Seeding done!');
     process.exit(0)
 });
