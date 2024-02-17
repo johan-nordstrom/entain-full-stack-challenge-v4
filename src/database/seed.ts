@@ -1,21 +1,20 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import {movies} from "./schema";
-import * as dotenv from "dotenv";
-dotenv.config({ path: "./.env.development" });
-
-if (!("DATABASE_URL" in process.env))
-    throw new Error("DATABASE_URL not found on .env.development");
+import * as configuration from "config/configuration";
 
 const client = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: configuration.default().connectionString,
 });
+
 const db = drizzle(client);
 async function deleteTables() {
     await db.delete(movies);
 }
+
+// Seed the database with initial movies
 async function seed()  {
-    console.log('Seeding...');
+    console.log('Seeding database...');
     return deleteTables().then( async () => {
         let movs = [
             { Title: "The Matrix", Genre: "Action" },
