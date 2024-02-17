@@ -15,10 +15,10 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
     }
     async all(): Promise<Movie[]> {
         return await this.db.select({
-            Title: movies.title,
-            Genre: movies.genre,
-            PosterPath: movies.poster_path,
-            BackdropPath: movies.backdrop_path,
+            title: movies.title,
+            genre: movies.genre,
+            posterPath: movies.poster_path,
+            backdropPath: movies.backdrop_path,
         }).
             from(movies).
             then((movies) => {
@@ -30,10 +30,10 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
         text = `%${text}%`;
 
         return await this.db.select({
-            Title: movies.title,
-            Genre: movies.genre,
-            PosterPath: movies.poster_path,
-            BackdropPath: movies.backdrop_path,
+            title: movies.title,
+            genre: movies.genre,
+            posterPath: movies.poster_path,
+            backdropPath: movies.backdrop_path,
         }).
             from(movies).
             where(ilike(column, text)).

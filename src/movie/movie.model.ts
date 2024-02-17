@@ -1,13 +1,13 @@
 export class Movie {
-    Genre: string;
-    Title: string;
-    PosterPath: string;
-    BackdropPath: string;
+    genre: string;
+    title: string;
+    posterPath: string;
+    backdropPath: string;
     constructor(title: string, genre: string, posterPath: string, backdropPath: string) {
-        this.Genre = genre;
-        this.Title = title;
-        this.PosterPath = posterPath;
-        this.BackdropPath = backdropPath;
+        this.genre = genre;
+        this.title = title;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
     }
 }
 
