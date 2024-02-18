@@ -4,7 +4,7 @@ import { movies } from "../database/schema";
 import { Inject, Injectable } from "@nestjs/common";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js/index";
 import * as schema from "../database/schema";
-import { ilike, like } from "drizzle-orm";
+import { ilike, like, eq } from "drizzle-orm";
 import { PgColumn } from "drizzle-orm/pg-core";
 
 @Injectable()
@@ -15,6 +15,7 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
     }
     async all(): Promise<Movie[]> {
         return await this.db.select({
+            id: movies.id,
             title: movies.title,
             genre: movies.genre,
             posterPath: movies.poster_path,
@@ -30,6 +31,7 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
         text = `%${text}%`;
 
         return await this.db.select({
+            id: movies.id,
             title: movies.title,
             genre: movies.genre,
             posterPath: movies.poster_path,
@@ -40,5 +42,17 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
             then((movies) => {
                 return movies;
             });
+    }
+
+    async findById(id: number): Promise<Movie> {
+        return await this.db.select({
+            id: movies.id,
+            title: movies.title,
+            genre: movies.genre,
+            posterPath: movies.poster_path,
+            backdropPath: movies.backdrop_path,
+        }).from(movies).where(eq(movies.id, id)).then((movies) => {
+            return movies[0];
+        });
     }
 }

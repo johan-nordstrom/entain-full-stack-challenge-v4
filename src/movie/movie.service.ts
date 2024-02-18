@@ -26,4 +26,8 @@ export class MovieService {
             }
         }
     }
+
+    async getMovieById(id: number): Promise<Movie> {
+        return await this.movieRepository.findById(id);
+    }
 }
