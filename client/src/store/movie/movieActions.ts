@@ -31,7 +31,7 @@ export const fetchMovieInfo = createAsyncThunk('/movie/info', async (
   { id = 0 }: { id: number }, { rejectWithValue }
 ) => {
   try {
-    const response = await axiosClient.get(`http://localhost:3000/movies/${id}`);
+    const response = await axiosClient.get(`/movies/${id}`);
 
     const movieInfo = {
       ...response.data,
