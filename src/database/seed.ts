@@ -13,9 +13,16 @@ async function deleteTables() {
     await db.delete(movies);
 }
 
+
 // Seed the database with initial movies
 async function seed() {
     Logger.log('Seeding database...');
+
+    if (db.select().from(movies).then((movies) => movies.length > 0)) {
+        Logger.log('Database already seeded, skipping...');
+        return;
+    }
+
     return deleteTables().then(async () => {
         let movs = [
             { Title: "The Godfather", Genre: "Drama", PosterPath: "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", BackdropPath: "/jMBfXvU9Z4d3q6Z6cZK5f5ZGtOq.jpg" },
