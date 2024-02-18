@@ -6,13 +6,9 @@ import { SearchMoviesDto, Movie, MovieFilterType } from "./movie.model";
 export class MovieController {
   constructor(private readonly movieService: MovieService) { }
 
-  @Post("search")
-  async getMovies(@Body(new ValidationPipe({ transform: true })) body: SearchMoviesDto): Promise<Movie[]> {
-    if (body.filterType != MovieFilterType.Genre && body.filterType != MovieFilterType.Title) {
-      throw new HttpException('Invalid filter type', HttpStatus.BAD_REQUEST);
-    }
-
-    return await this.movieService.getMoviesByFilter(body.text, body.filterType);
+  @Get("search/:text")
+  async getMovies(@Param() params: any): Promise<Movie[]> {
+    return await this.movieService.getMoviesByFilter(params.text, MovieFilterType.Title);
   }
 
   @Get()
