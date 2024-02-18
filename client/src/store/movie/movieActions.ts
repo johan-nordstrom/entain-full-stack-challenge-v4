@@ -9,8 +9,8 @@ export const fetchTrendingMovies = createAsyncThunk('/movies/list', async (
   try {
     const response = await axiosClient.get(
       searchTerm
-        ? `http://localhost:3000/movies/search/${searchTerm}`
-        : `http://localhost:3000/movies`
+        ? `/movies/search/${searchTerm}`
+        : `/movies`
     );
 
     const movies = response.data.map((movie: Movie) => ({
