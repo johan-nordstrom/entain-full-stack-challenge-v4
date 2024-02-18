@@ -19,3 +19,16 @@ $ docker compose up database
 # local watch mode
 $ npm run start:dev
 ```
+
+## Setting up database
+```bash
+# Generate migrations
+$ npm run generate
+
+# Push migrations
+$ npm run migrate
+
+# Seed database
+$ npm run seed
+```
+

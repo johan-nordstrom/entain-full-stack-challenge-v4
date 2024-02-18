@@ -73,13 +73,6 @@ RUN adduser --system --uid 1001 node || true
 COPY --chown=node:node --from=build /app/dist dist
 COPY --chown=node:node --from=build /app/node_modules node_modules
 
-# Generate migration
-RUN npm run generate
-# Push migrations
-RUN npm run migrate
-# Seed database
-RUN npm run seed
-
 # Set Docker as non-root user
 USER node
 
