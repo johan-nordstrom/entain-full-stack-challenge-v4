@@ -10,15 +10,15 @@ services:
       # ✨ Target the dev stage
       target: dev
     volumes:
-      - .:/app
+      - .:/usr/src/app
       # This ensures that the NestJS container manages the node_modules folder
       # rather than synchronizes it with the host machine
-      - node_modules:/app/node_modules
+      - node_modules:/usr/src/app/node_modules
     ports:
         - '3000:3000'
     depends_on:
       - database
-    command: 'npx nest start'
+    command: 'npx nest start --watch'
     networks:
       - fullstack
   database:

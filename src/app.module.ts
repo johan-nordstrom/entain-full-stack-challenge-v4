@@ -10,7 +10,7 @@ import { resolve } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: resolve('dist/client'),
+      rootPath: resolve('client/dist'),
     }),
     MovieModule,
     DrizzlePostgresModule.registerAsync({

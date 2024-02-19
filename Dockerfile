@@ -1,79 +1,76 @@
-#
-# 🧑‍💻 Development
-#
-FROM node:18-alpine as dev
-# add the missing shared libraries from alpine base image
-RUN apk add --no-cache libc6-compat
+###################
+# BUILD CLIENT
+###################
+FROM node:18-alpine as client
 
-# Create app folder
-WORKDIR /app
+WORKDIR /usr/src/app/client/
+COPY client/package*.json ./
 
-# Set to dev environment
-ENV NODE_ENV dev
+RUN npm install -qy
 
-# Create non-root user for Docker
-RUN addgroup --system --gid 1001 node || true
-RUN adduser --system --uid 1001 node || true
+COPY client/ ./
 
-# Copy source code into app folder
+RUN npm run build
+
+###################
+# BUILD FOR LOCAL DEVELOPMENT
+###################
+FROM node:18-alpine As dev
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy application dependency manifests to the container image.
+# A wildcard is used to ensure copying both package.json AND package-lock.json (when available).
+# Copying this first prevents re-running npm install on every code change.
+COPY --chown=node:node package*.json ./
+
+# Install app dependencies using the `npm ci` command instead of `npm install`
+RUN npm ci
+
+# Bundle app source
 COPY --chown=node:node . .
 
-# Install dependencies
-RUN yarn --frozen-lockfile
-
-# Set Docker as a non-root user
+# Use the node user from the image (instead of the root user)
 USER node
 
-#
-# 🏡 Production Build
-#
-FROM node:18-alpine as build
+###################
+# BUILD FOR PRODUCTION
+###################
+FROM node:18-alpine As build
 
-WORKDIR /app
-RUN apk add --no-cache libc6-compat
+WORKDIR /usr/src/app
 
-# Set to production environment
-ENV NODE_ENV production
+COPY --chown=node:node package*.json ./
 
-# Re-create non-root user for Docker
-RUN addgroup --system --gid 1001 node || true
-RUN adduser --system --uid 1001 node || true
+# In order to run `npm run build` we need access to the Nest CLI which is a dev dependency. In the previous development stage we ran `npm ci` which installed all dependencies, so we can copy over the node_modules directory from the development image
 
-# In order to run `yarn build` we need access to the Nest CLI.
-# Nest CLI is a dev dependency.
-COPY --chown=node:node --from=dev /app/node_modules ./node_modules
-# Copy source code
+COPY --chown=node:node --from=dev /usr/src/app/node_modules ./node_modules
+
 COPY --chown=node:node . .
 
-# Generate the production build. The build script runs "nest build" to compile the application.
-RUN yarn build
+# Run the build command which creates the production bundle
+RUN npm run build
 
-# Install only the production dependencies and clean cache to optimize image size.
-RUN yarn --frozen-lockfile --production && yarn cache clean
 
-# Set Docker as a non-root user
-USER node
-
-#
-# 🚀 Production Server
-#
-FROM node:18-alpine as prod
-
-WORKDIR /app
-RUN apk add --no-cache libc6-compat
-
-# Set to production environment
+# Set NODE_ENV environment variable
 ENV NODE_ENV production
 
-# Re-create non-root user for Docker
-RUN addgroup --system --gid 1001 node || true
-RUN adduser --system --uid 1001 node || true
 
-# Copy only the necessary files
-COPY --chown=node:node --from=build /app/dist dist
-COPY --chown=node:node --from=build /app/node_modules node_modules
+# Running `npm ci` removes the existing node_modules directory and passing in --only=production ensures that only the production dependencies are installed. This ensures that the node_modules directory is as optimized as possible
 
-# Set Docker as non-root user
+RUN npm ci --only=production && npm cache clean --force
+
 USER node
 
-CMD ["node", "dist/main.js"]
+###################
+# PRODUCTION
+###################
+FROM node:18-alpine As prod
+
+# Copy the bundled code from the build stage to the production image
+COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
+COPY --chown=node:node --from=build /usr/src/app/dist ./dist
+
+# Start the server using the production build
+CMD ["node", "dist/src/main.js"]
