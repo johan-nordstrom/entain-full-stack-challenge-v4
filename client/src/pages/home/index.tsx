@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../../store";
 import { useSelector } from "react-redux";
-import { fetchTrendingMovies } from "../../store/movie/movieActions";
+import { fetchMovies } from "../../store/movie/movieActions";
 import { Container } from "../../components/container";
 import { HeroSection } from "./components/heroSection";
 import { Spinner } from "../../components/spinner";
@@ -32,13 +32,9 @@ export const Home = () => {
         dispatch(clearMovies());
       }
 
-      dispatch(fetchTrendingMovies({ page: page, searchTerm: searchQuery }));
+      dispatch(fetchMovies({ page: page, searchTerm: searchQuery }));
     }
   }, [dispatch, isInitialRender, page, searchQuery]);
-
-  const handlePagination = () => {
-    setPage(prevPage => prevPage + 1);
-  }
 
   if (loading && isInitialRender) {
     return <div className="mt-[50vh] flex items-center justify-center">
@@ -58,7 +54,6 @@ export const Home = () => {
         <MoviesList
           movies={movies}
           loading={loading}
-          loadMore={handlePagination}
         />
       </Container>
     </motion.main>

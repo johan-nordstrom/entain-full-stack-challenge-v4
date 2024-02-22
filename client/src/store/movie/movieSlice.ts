@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMovieInfo, fetchTrendingMovies } from './movieActions';
+import { fetchMovieInfo, fetchMovies } from './movieActions';
 import { Movie } from './interfaces';
 
 interface InitialState {
@@ -26,14 +26,14 @@ const movieSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTrendingMovies.pending, (state) => {
+      .addCase(fetchMovies.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchTrendingMovies.fulfilled, (state, { payload }) => {
+      .addCase(fetchMovies.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.movies = state.movies.concat(payload as Movie[]);
       })
-      .addCase(fetchTrendingMovies.rejected, (state, action) => {
+      .addCase(fetchMovies.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || '';
       }),

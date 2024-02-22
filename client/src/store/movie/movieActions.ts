@@ -3,7 +3,7 @@ import axiosClient from "../../utils/axiosClient";
 import { IMAGE_BASE_URL } from "../../data/endpoints";
 import { Movie } from "./interfaces";
 
-export const fetchTrendingMovies = createAsyncThunk('/movies/list', async (
+export const fetchMovies = createAsyncThunk('/movies/list', async (
   { searchTerm = "" }: { page: number, searchTerm?: string }, { rejectWithValue }
 ) => {
   try {

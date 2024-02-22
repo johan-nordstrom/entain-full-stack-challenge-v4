@@ -4,27 +4,4 @@ export interface Movie {
   id: number,
   posterPath: string,
   title: string,
-  /*
-  adult: boolean,
-  genre_ids: number[],
-  original_language: string,
-  original_title: string,
-  overview: string,
-  popularity: number,
-  release_date: string,
-  video: boolean,
-  vote_average: number,
-  vote_count: number,
-  media_type: string,
-  name: string,
-  genre: string,
-  homepage: string,
-  languages: string[],
-  networks: object[],
-  seasons: object[],
-  spoken_languages: { english_name: string, iso_639_1: string, name: string }[],
-  status: string,
-  tagline: string,
-  type: string
-  */
 }

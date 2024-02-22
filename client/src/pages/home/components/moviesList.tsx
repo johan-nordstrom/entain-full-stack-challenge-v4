@@ -3,9 +3,7 @@ import { Movie } from "../../../store/movie/interfaces"
 
 interface MoviesListProps {
   movies: Movie[],
-  loadMore: () => void,
   loading: boolean,
-  hasMore?: boolean
 }
 
 export const MoviesList = ({ movies }: MoviesListProps) => {
