@@ -15,8 +15,3 @@ export enum MovieFilterType {
     Title = 'title',
     Genre = 'genre'
 }
-
-export class SearchMoviesDto {
-    text: string;
-    filterType: MovieFilterType;
-}
