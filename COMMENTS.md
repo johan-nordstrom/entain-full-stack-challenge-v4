@@ -14,19 +14,11 @@ If designing database again i would have done genres as a list and one to many r
 I do not have any experience with github pages and it seems to be complicated to connect your own rest api.
 I will host the repo on github but i will most likely host the project on a different platform like linode.
 
-## Repository pattern
-I am planning on using the repository pattern for services.
-
-## Host
-Set database 127.0.0.1 in /etc/hosts when developing to not have to change postgres url.
-Need to figure out why docker is not resolving database host.
-
 ## Dev or prod enviroment
-In respect of time i will just implement dev and prod enviroment to demonstrate
-being able to use different databases depending on enviroment.
+In respect of time i just implented a dev stage but it can be extended with a build and prod stage.
 
 ## Database seeding
-I could write a script that uses tmdb api and populate database but to save time i opted to just insert 10 random movies. 
+I could write a script that uses tmdb api and populate database but to save time i opted to just insert 10-15 random movies. 
 
 ## Trending movies
-One addition i could do would be to fetch trending movies from tmdb and filter on my local database.
+One addition i could do have done would be to fetch trending movies from tmdb and filter on my local database.
