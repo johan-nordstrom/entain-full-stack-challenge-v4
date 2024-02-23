@@ -1,4 +1,4 @@
 export default () => ({
-    port: 3000,
-    connectionString: "postgres://postgres:postgres@database:5432",
+    port: 8763,
+    connectionString: "postgres://postgres:postgres@database:25432",
 });
