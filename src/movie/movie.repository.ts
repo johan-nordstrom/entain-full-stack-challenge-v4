@@ -14,7 +14,7 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
         @Inject('DB_DEV') private db: PostgresJsDatabase<typeof schema>
     ) {
     }
-    
+
     async all(): Promise<Movie[]> {
         return await this.db.select({
             id: movies.id,
@@ -26,6 +26,7 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
     }
 
     async findMany(column: PgColumn, text: string): Promise<Movie[]> {
+        let escapedStr = '%' + escapeString(text).replaceAll("'", "") + '%';
         return await this.db.select({
             id: movies.id,
             title: movies.title,
@@ -34,7 +35,7 @@ export default class MovieRepository implements RepositoryInterface<Movie> {
             backdropPath: movies.backdrop_path,
         }).
             from(movies).
-            where(ilike(column, `%${escapeString(text)}%`));
+            where(ilike(column, escapedStr));
     }
 
     async findById(id: number): Promise<Movie> {

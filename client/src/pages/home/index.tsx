@@ -3,7 +3,6 @@ import { RootState, useAppDispatch } from "../../store";
 import { useSelector } from "react-redux";
 import { fetchMovies } from "../../store/movie/movieActions";
 import { Container } from "../../components/container";
-import { HeroSection } from "./components/heroSection";
 import { Spinner } from "../../components/spinner";
 import { MoviesList } from "./components/moviesList";
 import { Variants, motion } from "framer-motion";
@@ -48,7 +47,6 @@ export const Home = () => {
 
   return (
     <motion.main initial="hidden" animate="visible" exit="exit" transition={{ duration: 1 }} variants={variants}>
-      {movies[0] && <HeroSection movie={movies[3]} />}
       <Container>
         <SearchBar setSearch={setSearchQuery} />
         <MoviesList

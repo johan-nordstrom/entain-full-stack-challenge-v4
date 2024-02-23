@@ -156,12 +156,10 @@ async function addMovies() {
 async function seed() {
     Logger.log('Seeding database...');
 
-    /*
     if (db.select().from(movies).then((movies) => movies.length > 0)) {
         Logger.log('Database already seeded, skipping...');
         return;
     }
-    */
 
     return deleteTables().then(addMovies);
 };

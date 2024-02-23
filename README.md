@@ -3,10 +3,17 @@
 ## Description
 
 This is a simple fullstack application that allows users to browse through a movie database. Stack is React/NestJS/Postgres.
+After starting containers run migrations and seed database.
 
-## Installation
+## API Installation
 - Clone the repo
 - `npm install` 
+
+## Client Installation
+```bash
+- `cd client`
+- `npm install` 
+```
 
 ## Running the app
 ```bash
