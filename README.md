@@ -11,8 +11,8 @@ After starting containers run migrations and seed database.
 
 ## Client Installation
 ```bash
-- `cd client`
-- `npm install` 
+$ cd client
+$ npm install
 ```
 
 ## Running the app
