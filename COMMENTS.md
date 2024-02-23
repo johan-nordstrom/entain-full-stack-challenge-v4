@@ -2,7 +2,7 @@
 I decided to implement the API first and all the endpoints. I will then implement the frontend and connect it to the API.
 
 ## Drizzle ORM
-I did speak to some people who are typescript developers and discussed the best and most simple ORM, i landed on Drizzle.
+I did some research to find a simple orm to work on postgres, i landed on Drizzle.
 To integrate drizzle in the project i used the nestjs-drizzle module. If redoing it i would probably do it without an ORM, i just did not have a good knowledge of all the libraries in typescript. I would use pg-promise if i did it again.
 
 ## Database design
