@@ -18,7 +18,7 @@ const variants: Variants = {
 export const Home = () => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const [isInitialRender, setIsInitialRender] = useState(true);
   const { loading, error, movies } = useSelector((state: RootState) => state.movie);
 
